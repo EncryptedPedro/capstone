@@ -1,10 +1,10 @@
 import React from "react";
+import logo from "../icons_assets/Logo.svg";
 
 const Header = () => {
     return (
         <header>
-            <h1>Meta Front End Capstone</h1>
-            <img src="/icons_assets/Logo.svg" />
+            <h1><img src={logo} alt="Logo" /> Meta Front End Capstone</h1>
         </header>
     );
 }
