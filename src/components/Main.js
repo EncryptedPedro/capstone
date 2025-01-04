@@ -1,10 +1,15 @@
 import React from "react";
+import ReserveButton from "./ReserveButton";
 
 const Main = () => {
     return (
         <main>
-            <h2>Welcome to the Meta Front End Capstone!</h2>
-            <p>This is the main content area. You can add more components here.</p>
+            <div className="content">
+                <h2>Little Lemon</h2>
+                <p>Chicago</p>
+                <p>Little Lemon is a family-owned restaurant that has been serving the Chicago community for over 20 years. Our mission is to provide our customers with the best dining experience</p>
+            </div>
+            < ReserveButton />
         </main>
     );
 }

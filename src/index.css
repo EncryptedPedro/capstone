@@ -1,13 +1,110 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  display: grid;
+  grid-template-areas:
+    "header nav nav"
+    "main main main"
+    "footer footer footer";
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  max-width: 1000px;
+  width: 100%;
+}
+
+header {
+  grid-area: header;
+  padding: 1rem;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+
+nav {
+  grid-area: nav;
+  padding: 2vh;
+}
+
+nav ul {
+  list-style: none;
+  padding: 1vh;
+  margin: 1vh;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+nav li {
+  margin: 1vw;
+}
+
+nav a {
+  text-decoration: none;
+  color: #000;
+}
+
+main {
+  grid-area: main;
+  background-color: #495E57;
+  color: #F4CE14;
+  padding: 1rem;
+  width: 100vw; /* Extend background color to full viewport width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+  margin-left: -50vw; /* Adjust to fill the left side */
+  margin-right: -50vw; /* Adjust to fill the right side */
+  left: 50%;
+  position: relative;
+}
+
+main .content {
+  max-width: 1000px; /* Center content within the main area */
+  width: 100%;
+  text-align: center;
+}
+
+
+footer {
+  grid-area: footer;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 20%;
+}
+
+footer img {
+  margin-right: 1rem; /* Adjust the spacing between the image and text */
+}
+
+/* Media query for mobile view */
+@media (max-width: 600px) {
+  .container {
+    grid-template-areas:
+      "header nav"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  nav ul {
+    flex-direction: column; /* Stack nav items vertically */
+    align-items: center;
+  }
+
+  nav li {
+    margin: 0.5rem 0; /* Adjust margin for nav items */
+  }
 }
