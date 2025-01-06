@@ -65,12 +65,30 @@ main {
   margin-right: -50vw; /* Adjust to fill the right side */
   left: 50%;
   position: relative;
+  gap: 350px;
 }
 
 main .content {
   max-width: 1000px; /* Center content within the main area */
-  width: 100%;
-  text-align: center;
+  width: 350px;
+  text-align: left;
+  background-color: #495E57;
+  padding: 1rem;
+  margin-left: -40px;
+  position: relative; /* Ensure the content is the positioning context */
+  z-index: 1; /* Ensure the content is above the main background */
+}
+
+main div {
+  position: relative; /* Ensure the div is the positioning context */
+}
+
+main div img {
+  border-radius: 16px;
+  position: absolute;
+  top: -80px; /* Adjust the value to control the overlap */
+  right: -50px; /* Adjust the value to control the overlap */
+  z-index: 2; /* Ensure the image is above the content */
 }
 
 
