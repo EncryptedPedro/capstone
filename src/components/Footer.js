@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer>
             <p><img src={logo} alt="Logo" /></p>
-            <p> © 2024 Little Lemon</p>
+            <span> © 2024 Little Lemon</span>
         </footer>
     );
 }
