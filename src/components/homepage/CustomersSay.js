@@ -1,0 +1,1 @@
+// testimonials, including star ratings, customer images and customer details
