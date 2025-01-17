@@ -94,6 +94,10 @@ main .content button {
   font-size: large;
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 main div {
   position: relative; /* Ensure the div is the positioning context */
 }

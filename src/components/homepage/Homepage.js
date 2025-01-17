@@ -1,6 +1,6 @@
 import React from 'react';
 import ReserveButton from "../foundations/ReserveButton";
-import RestauranFood from "../../icons_assets/restauranfood.jpg";
+import RestaurantFood from "../../icons_assets/restauranfood.jpg";
 
 function Homepage() {
     return (
@@ -12,7 +12,7 @@ function Homepage() {
                 <ReserveButton />
             </div>
             <div className="image">
-                <img src={RestauranFood} alt="Image" width="300px"></img>
+                <img src={RestaurantFood} alt="Image" width="300px"></img>
             </div>
         </main>
     );
