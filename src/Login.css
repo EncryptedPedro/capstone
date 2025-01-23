@@ -1,5 +1,7 @@
 .error {
     color: red;
+    font-size: large;
+    margin-bottom: -20px;
 }
 
 label {

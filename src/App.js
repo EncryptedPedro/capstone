@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './components/homepage/Homepage';
 import About from './components/About';
 import Menu from './components/Menu';
-import Reservations from './components/Reservations';
+import Reservations from './components/BookingPage';
 import Order from './components/Order';
 import Login from './components/Login';
 
