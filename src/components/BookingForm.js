@@ -11,7 +11,9 @@ function BookingForm() {
         occasion: '',
     });
 
-    const times = [
+    const [reservedTimes, setReservedTimes] = useState({});
+
+    const availableTimes = [
         '12:00 PM',
         '1:00 PM',
         '2:00 PM',
@@ -40,8 +42,20 @@ function BookingForm() {
         onSubmit: values => {
             setFormValues(values);
             console.log('Form Values:', values);
+            setReservedTimes(prevReservedTimes => ({
+                ...prevReservedTimes,
+                [values.date]: {
+                    ...prevReservedTimes[values.date],
+                    [values.time]: true,
+                },
+            }));
         },
     });
+
+    const timesForSelectedDate = availableTimes.map(time => ({
+        time,
+        reserved: reservedTimes[formik.values.date]?.[time] || false,
+    }));
 
     return (
         <main>
@@ -91,9 +105,9 @@ function BookingForm() {
                             value={formik.values.time}
                         >
                             <option value="" label="Select time" />
-                            {times.map((time, index) => (
-                                <option key={index} value={time}>
-                                    {time}
+                            {timesForSelectedDate.map((timeSlot, index) => (
+                                <option key={index} value={timeSlot.time} disabled={timeSlot.reserved}>
+                                    {timeSlot.time} {timeSlot.reserved ? '(Reserved)' : ''}
                                 </option>
                             ))}
                         </select>
@@ -112,16 +126,12 @@ function BookingForm() {
                             onBlur={formik.handleBlur}
                             value={formik.values.guests}
                         >
-                            <option value="1" label="1" />
-                            <option value="2" label="2" />
-                            <option value="3" label="3" />
-                            <option value="4" label="4" />
-                            <option value="5" label="5" />
-                            <option value="6" label="6" />
-                            <option value="7" label="7" />
-                            <option value="8" label="8" />
-                            <option value="9" label="9" />
-                            <option value="10" label="10" />
+                            <option value="" label="Select number of guests" />
+                            {[...Array(10).keys()].map((num) => (
+                                <option key={num + 1} value={num + 1}>
+                                    {num + 1}
+                                </option>
+                            ))}
                         </select>
                         {formik.touched.guests && formik.errors.guests ? (
                             <div className="error">{formik.errors.guests}</div>
