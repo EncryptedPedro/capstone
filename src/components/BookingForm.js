@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 
 function BookingForm() {
     const [formValues, setFormValues] = useState({
@@ -11,8 +9,6 @@ function BookingForm() {
         occasion: '',
     });
 
-    const [reservedTimes, setReservedTimes] = useState({});
-
     const availableTimes = [
         '12:00 PM',
         '1:00 PM',
@@ -22,46 +18,17 @@ function BookingForm() {
         '9:00 PM',
     ];
 
-    const formik = useFormik({
-        initialValues: formValues,
-        validationSchema: Yup.object({
-            name: Yup.string()
-                .required('Required'),
-            date: Yup.date()
-                .required('Required')
-                .min(new Date(), 'Date must be later than today'),
-            time: Yup.string()
-                .required('Required'),
-            guests: Yup.number()
-                .required('Required')
-                .min(1, 'Must be at least 1')
-                .max(10, 'Must be at most 10'),
-            occasion: Yup.string()
-                .required('Required'),
-        }),
-        onSubmit: values => {
-            setFormValues(values);
-            console.log('Form Values:', values);
-            setReservedTimes(prevReservedTimes => ({
-                ...prevReservedTimes,
-                [values.date]: {
-                    ...prevReservedTimes[values.date],
-                    [values.time]: true,
-                },
-            }));
-        },
-    });
-
-    const timesForSelectedDate = availableTimes.map(time => ({
-        time,
-        reserved: reservedTimes[formik.values.date]?.[time] || false,
-    }));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert("Table reserved!");
+        // clearForm();
+      };
 
     return (
         <main>
             <div className="content">
                 <h2>Reservations</h2>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="name">Name:</label>
                         <br />
@@ -69,13 +36,11 @@ function BookingForm() {
                             id="name"
                             name="name"
                             type="text"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.name}
+                            onChange={(e) => {
+                                setFormValues.name(e.target.value);
+                              }}
+                            value={formValues.name}
                         />
-                        {formik.touched.name && formik.errors.name ? (
-                            <div className="error">{formik.errors.name}</div>
-                        ) : null}
                     </div>
                     <br />
                     <div>
@@ -85,13 +50,11 @@ function BookingForm() {
                             id="date"
                             name="date"
                             type="date"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.date}
+                            onChange={(e) => {
+                                setFormValues.name(e.target.value);
+                              }}
+                            value={formValues.name}
                         />
-                        {formik.touched.date && formik.errors.date ? (
-                            <div className="error">{formik.errors.date}</div>
-                        ) : null}
                     </div>
                     <br />
                     <div>
@@ -100,20 +63,12 @@ function BookingForm() {
                         <select
                             id="time"
                             name="time"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.time}
+                            onChange={(e) => {
+                                setFormValues.name(e.target.value);
+                              }}
+                            value={formValues.name}
                         >
-                            <option value="" label="Select time" />
-                            {timesForSelectedDate.map((timeSlot, index) => (
-                                <option key={index} value={timeSlot.time} disabled={timeSlot.reserved}>
-                                    {timeSlot.time} {timeSlot.reserved ? '(Reserved)' : ''}
-                                </option>
-                            ))}
                         </select>
-                        {formik.touched.time && formik.errors.time ? (
-                            <div className="error">{formik.errors.time}</div>
-                        ) : null}
                     </div>
                     <br />
                     <div>
@@ -122,20 +77,12 @@ function BookingForm() {
                         <select
                             id="guests"
                             name="guests"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.guests}
+                            onChange={(e) => {
+                                setFormValues.name(e.target.value);
+                              }}
+                            value={formValues.name}
                         >
-                            <option value="" label="Select number of guests" />
-                            {[...Array(10).keys()].map((num) => (
-                                <option key={num + 1} value={num + 1}>
-                                    {num + 1}
-                                </option>
-                            ))}
                         </select>
-                        {formik.touched.guests && formik.errors.guests ? (
-                            <div className="error">{formik.errors.guests}</div>
-                        ) : null}
                     </div>
                     <br />
                     <div>
@@ -145,13 +92,11 @@ function BookingForm() {
                             id="occasion"
                             name="occasion"
                             type="text"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.occasion}
+                            onChange={(e) => {
+                                setFormValues.name(e.target.value);
+                              }}
+                            value={formValues.name}
                         />
-                        {formik.touched.occasion && formik.errors.occasion ? (
-                            <div className="error">{formik.errors.occasion}</div>
-                        ) : null}
                     </div>
                     <br />
                     <button type="submit">Reserve</button>
