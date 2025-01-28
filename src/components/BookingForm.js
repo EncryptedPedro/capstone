@@ -18,6 +18,8 @@ function BookingForm() {
         '9:00 PM',
     ];
 
+    const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
     const handleSubmit = (e) => {
         e.preventDefault();
         alert("Table reserved!");
@@ -33,11 +35,12 @@ function BookingForm() {
                         <label htmlFor="name">Name:</label>
                         <br />
                         <input
+                            required
                             id="name"
                             name="name"
                             type="text"
                             onChange={(e) => {
-                                setFormValues.name(e.target.value);
+                                setFormValues(e.target.value);
                               }}
                             value={formValues.name}
                         />
@@ -47,13 +50,14 @@ function BookingForm() {
                         <label htmlFor="date">Date:</label>
                         <br />
                         <input
+                            required
                             id="date"
                             name="date"
                             type="date"
                             onChange={(e) => {
-                                setFormValues.name(e.target.value);
+                                setFormValues(e.target.value);
                               }}
-                            value={formValues.name}
+                            value={formValues.date}
                         />
                     </div>
                     <br />
@@ -64,10 +68,15 @@ function BookingForm() {
                             id="time"
                             name="time"
                             onChange={(e) => {
-                                setFormValues.name(e.target.value);
+                                setFormValues(e.target.value);
                               }}
-                            value={formValues.name}
+                            value={formValues.time}
                         >
+                            {availableTimes.map((time) => (
+                                <option key={time} value={time}>
+                                    {time}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <br />
@@ -78,10 +87,15 @@ function BookingForm() {
                             id="guests"
                             name="guests"
                             onChange={(e) => {
-                                setFormValues.name(e.target.value);
+                                setFormValues(e.target.value);
                               }}
-                            value={formValues.name}
+                            value={formValues.guests}
                         >
+                            {slots.map((slot) => (
+                                <option key={slot} value={slot}>
+                                    {slot}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <br />
@@ -93,15 +107,16 @@ function BookingForm() {
                             name="occasion"
                             type="text"
                             onChange={(e) => {
-                                setFormValues.name(e.target.value);
+                                setFormValues(e.target.value);
                               }}
-                            value={formValues.name}
+                            value={formValues.occasion}
                         />
                     </div>
                     <br />
                     <button type="submit">Reserve</button>
                 </form>
             </div>
+
         </main>
     );
 }
