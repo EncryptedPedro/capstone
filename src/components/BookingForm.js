@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function BookingForm() {
+function BookingForm({availableTimes, dispatch}) {
     const [formValues, setFormValues] = useState({
         name: '',
         date: '',
@@ -9,22 +9,13 @@ function BookingForm() {
         occasion: '',
     });
 
-    const availableTimes = [
-        '12:00 PM',
-        '1:00 PM',
-        '2:00 PM',
-        '7:00 PM',
-        '8:00 PM',
-        '9:00 PM',
-    ];
-
     const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const handleSubmit = (e) => {
         e.preventDefault();
         alert("Table reserved!");
         // clearForm();
-      };
+    };
 
     return (
         <main>
@@ -72,11 +63,13 @@ function BookingForm() {
                               }}
                             value={formValues.time}
                         >
-                            {availableTimes.map((time) => (
-                                <option key={time} value={time}>
-                                    {time}
-                                </option>
-                            ))}
+                            {availableTimes.map((time, index) => {
+                                return (
+                                    <option key={index} value={time}>
+                                        {time}
+                                    </option>
+                                );
+                            })}
                         </select>
                     </div>
                     <br />
