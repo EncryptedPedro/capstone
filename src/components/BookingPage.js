@@ -1,6 +1,4 @@
-// table reservations page
 import React, { useState, useReducer } from 'react';
-import Restaurant from "../icons_assets/restaurant.jpg";
 import "../Login.css";
 import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
@@ -16,15 +14,33 @@ function BookingPage() {
         return ['12:00 PM', '1:00 PM', '2:00 PM', '7:00 PM', '8:00 PM', '9:00 PM'];
     }
 
+    const [formValues, setFormValues] = useState({
+        name: '',
+        date: '',
+        time: '',
+        guests: '1',
+        occasion: '',
+    });
+
+    const [submittedForms, setSubmittedForms] = useState([]);
+
+    const handleFormSubmit = (values) => {
+        setSubmittedForms([...submittedForms, values]);
+    };
 
     return (
         <main>
             <div>
-                {initializeTimes}
-                <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
+                <BookingForm availableTimes={availableTimes} dispatch={dispatch} formValues={formValues} setFormValues={setFormValues} onSubmit={handleFormSubmit} />
             </div>
-            <div>
-                <ReservedTables availableTimes={availableTimes} dispatch={dispatch}/>
+            <div className="content">
+                <h2>Reservations</h2>
+                <div>
+                    <hr />
+                    {submittedForms.map((form, index) => (
+                        <ReservedTables key={index} formValues={form} />
+                    ))}
+                </div>
             </div>
         </main>
     );

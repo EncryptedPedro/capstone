@@ -72,15 +72,14 @@ main {
   margin-right: -50vw; /* Adjust to fill the right side */
   left: 50%;
   position: relative;
-  gap: 350px;
+  gap: 150px;
 }
 
 main .content {
   max-width: 1000px; /* Center content within the main area */
-  width: 350px;
+  width: 250px;
   text-align: left;
   padding: 1rem;
-  margin-left: -40px;
   position: relative; /* Ensure the content is the positioning context */
   z-index: 1; /* Ensure the content is above the main background */
 }
