@@ -6,15 +6,25 @@ import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
 
 function BookingPage() {
-    const [availableTimes, dispatch] = useReducer(useReducer, ['12:00 PM', '1:00 PM', '2:00 PM', '7:00 PM', '8:00 PM', '9:00 PM']);
+    const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
+
+    function updateTimes(availableTimes) {
+        return availableTimes;
+    }
+
+    function initializeTimes() {
+        return ['12:00 PM', '1:00 PM', '2:00 PM', '7:00 PM', '8:00 PM', '9:00 PM'];
+    }
+
 
     return (
         <main>
             <div>
+                {initializeTimes}
                 <BookingForm availableTimes={availableTimes} dispatch={dispatch} />
             </div>
             <div>
-                <ReservedTables />
+                <ReservedTables availableTimes={availableTimes} dispatch={dispatch}/>
             </div>
         </main>
     );

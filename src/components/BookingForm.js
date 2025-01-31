@@ -47,6 +47,7 @@ function BookingForm({availableTimes, dispatch}) {
                             type="date"
                             onChange={(e) => {
                                 setFormValues(e.target.value);
+                                dispatch({type: 'updateTimes', payload: e.target.value});
                               }}
                             value={formValues.date}
                         />
@@ -63,13 +64,12 @@ function BookingForm({availableTimes, dispatch}) {
                               }}
                             value={formValues.time}
                         >
-                            {availableTimes.map((time, index) => {
-                                return (
-                                    <option key={index} value={time}>
-                                        {time}
-                                    </option>
-                                );
-                            })}
+                            <option value="">Select a time</option>
+                            {availableTimes.map((time, index) => (
+                                <option key={index} value={time}>
+                                    {time}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <br />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ReservedTables() {
+function ReservedTables({availableTimes, dispatch}) {
     return (
         <main>
             <div className="content">
