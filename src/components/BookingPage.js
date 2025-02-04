@@ -7,7 +7,7 @@ function BookingPage() {
     const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
 
     function updateTimes(availableTimes) {
-        return availableTimes;
+        return availableTimes; // just for example, will be configured later
     }
 
     function initializeTimes() {
@@ -31,14 +31,21 @@ function BookingPage() {
     return (
         <main>
             <div>
-                <BookingForm availableTimes={availableTimes} dispatch={dispatch} formValues={formValues} setFormValues={setFormValues} onSubmit={handleFormSubmit} />
+                <BookingForm
+                availableTimes={availableTimes}
+                dispatch={dispatch}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                onSubmit={handleFormSubmit} />
             </div>
             <div className="content">
                 <h2>Reservations</h2>
                 <div>
                     <hr />
                     {submittedForms.map((form, index) => (
-                        <ReservedTables key={index} formValues={form} />
+                        <ReservedTables
+                        key={index}
+                        formValues={form} />
                     ))}
                 </div>
             </div>

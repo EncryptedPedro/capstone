@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSubmit }) {
     const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -37,6 +38,7 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
                             setFormValues({ ...formValues, name: e.target.value });
                         }}
                         value={formValues.name}
+                        placeholder='John Doe'
                     />
                 </div>
                 <br />
@@ -106,6 +108,7 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
                             setFormValues({ ...formValues, occasion: e.target.value });
                         }}
                         value={formValues.occasion}
+                        placeholder='Birthday, Anniversary, etc.'
                     />
                 </div>
                 <br />
@@ -114,5 +117,13 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
         </div>
     );
 }
+
+BookingForm.propTypes = {
+    availableTimes: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    formValues: PropTypes.object.isRequired,
+    setFormValues: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+};
 
 export default BookingForm;
