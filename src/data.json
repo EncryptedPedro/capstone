@@ -1,0 +1,29 @@
+{
+    "reservations":
+    [
+        {
+            "name": "John Doe",
+            "date": "2025-02-15",
+            "time": "13:00",
+            "guests": 2,
+            "occasion": "Birthday"
+        },
+        {
+            "name": "Jane Smith",
+            "date": "2025-02-14",
+            "time": "19:30",
+            "guests": 4,
+            "occasion": "Wedding"
+        }
+    ],
+    "availableTimes":
+    [
+        "12:00 PM",
+        "1:00 PM",
+        "2:00 PM",
+        "7:00 PM",
+        "8:00 PM",
+        "9:00 PM"
+    ],
+    "todayDate": "2025-02-13"
+}

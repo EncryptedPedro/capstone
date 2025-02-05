@@ -1,18 +1,10 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import "../Login.css";
 import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
 
 function BookingPage() {
     const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
-
-    function updateTimes(availableTimes) {
-        return availableTimes; // just for example, will be configured later
-    }
-
-    function initializeTimes() {
-        return ['12:00 PM', '1:00 PM', '2:00 PM', '7:00 PM', '8:00 PM', '9:00 PM'];
-    }
 
     const [formValues, setFormValues] = useState({
         name: '',
@@ -22,11 +14,32 @@ function BookingPage() {
         occasion: '',
     });
 
+    const [data, setData] = useState({});
     const [submittedForms, setSubmittedForms] = useState([]);
+
+    const fetchData = (x) => {
+        fetch("../data.json")
+        .then((response) => response.json())
+        .then((dataJSON) => (
+            setData(dataJSON),
+            dispatch(dataJSON.availableTimes)))
+    };
 
     const handleFormSubmit = (values) => {
         setSubmittedForms([...submittedForms, values]);
     };
+
+    function updateTimes(data) {
+        return data; // just for example, will be configured later
+    };
+
+    function initializeTimes(data) {
+        return data;
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <main>
