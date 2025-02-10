@@ -4,6 +4,15 @@ import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
 
 function BookingPage() {
+    const updateTimes = (state, action) => {
+        switch (action.type) {
+            case 'update':
+                return action.payload;
+            default:
+                return state;
+        }
+    };
+
     const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
 
     const [formValues, setFormValues] = useState({
@@ -14,27 +23,28 @@ function BookingPage() {
         occasion: '',
     });
 
-    const [data, setData] = useState({});
     const [submittedForms, setSubmittedForms] = useState([]);
 
-    const fetchData = (x) => {
+    const fetchData = () => {
         fetch("/data.json")
         .then((response) => response.json())
-        .then((dataJSON) => (
-            setData(dataJSON),
-            dispatch(dataJSON.availableTimes)))
-    };
+        .then((dataJSON) => {
+            dispatch({ type: 'update', payload: dataJSON.availableTimes });
+    })};
 
     const handleFormSubmit = (values) => {
         setSubmittedForms([...submittedForms, values]);
     };
 
-    function updateTimes(data) {
-        return data; // just for example, will be configured later
-    };
-
-    function initializeTimes(data) {
-        return data;
+    function initializeTimes() {
+        return [
+            "12:00 PM",
+            "1:00 PM",
+            "2:00 PM",
+            "7:00 PM",
+            "8:00 PM",
+            "9:00 PM"
+        ];
     };
 
     useEffect(() => {
