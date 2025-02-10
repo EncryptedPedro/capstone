@@ -2,22 +2,12 @@ import React, { useState, useReducer, useEffect } from 'react';
 import "../Login.css";
 import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
+import { fetchAPI } from '../API.js';
 
 function BookingPage() {
-    const updateTimes = (state, action) => {
-        switch (action.type) {
-            case 'update':
-                return action.payload;
-            default:
-                return state;
-        }
-    };
-
-    const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
-
     const [formValues, setFormValues] = useState({
         name: '',
-        date: '',
+        date: new Date(),
         time: '',
         guests: '1',
         occasion: '',
@@ -25,31 +15,33 @@ function BookingPage() {
 
     const [submittedForms, setSubmittedForms] = useState([]);
 
-    const fetchData = () => {
-        fetch("/data.json")
-        .then((response) => response.json())
-        .then((dataJSON) => {
-            dispatch({ type: 'update', payload: dataJSON.availableTimes });
-    })};
-
     const handleFormSubmit = (values) => {
         setSubmittedForms([...submittedForms, values]);
     };
 
-    function initializeTimes() {
-        return [
-            "12:00 PM",
-            "1:00 PM",
-            "2:00 PM",
-            "7:00 PM",
-            "8:00 PM",
-            "9:00 PM"
-        ];
+    const currentDate = new Date();
+    const [availableTimes, dispatch] = useReducer(reducer, initializeTimes(currentDate));
+
+    function initializeTimes(date) {
+        return (fetchAPI(date));
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    function updateTimes(date) {
+        return (fetchAPI(date));
+    };
+
+    function reducer (state, action) {
+        let newState = state;
+        switch (action.type) {
+            case 'update':
+                const newDate = new Date(action.payload);
+                newState = updateTimes(newDate)
+                break;
+        default:
+            throw new Error()
+        }
+        return newState
+    };
 
     return (
         <main>

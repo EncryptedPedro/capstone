@@ -52,7 +52,7 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
                         type="date"
                         onChange={(e) => {
                             setFormValues({ ...formValues, date: e.target.value });
-                            dispatch({ type: 'updateTimes', payload: e.target.value });
+                            dispatch({type: 'update', payload: e.target.value})
                         }}
                         value={formValues.date}
                     />
