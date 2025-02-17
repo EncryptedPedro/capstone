@@ -10,10 +10,13 @@ import Menu from './components/Menu';
 import Reservations from './components/BookingPage';
 import Order from './components/Order';
 import Login from './components/Login';
+import ConfirmedBooking from './components/ConfirmedBooking';
+import { BookingProvider } from './components/BookingContext';
 
 function App() {
   return (
     <div className="container">
+      <BookingProvider>
       <Header />
       <Router>
         <Nav />
@@ -24,9 +27,11 @@ function App() {
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/order" element={<Order />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/confirmation" element={<ConfirmedBooking/>}/>
         </Routes>
       </Router>
       <Footer />
+      </BookingProvider>
     </div>
   );
 }

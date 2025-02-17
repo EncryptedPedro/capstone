@@ -10,7 +10,7 @@ const ReserveButton = () => {
 
     return (
         <button onClick={handleReserve} className="reserve-button">
-            Reserve a Table
+            New Reservation
         </button>
     );
 };

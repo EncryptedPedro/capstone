@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import "../Login.css";
 
 function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSubmit }) {
     const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -7,7 +7,6 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formValues);
-        alert("Table reserved!");
         clearForm();
     };
 
@@ -118,12 +117,5 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
     );
 }
 
-BookingForm.propTypes = {
-    availableTimes: PropTypes.array.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    formValues: PropTypes.object.isRequired,
-    setFormValues: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-};
 
 export default BookingForm;

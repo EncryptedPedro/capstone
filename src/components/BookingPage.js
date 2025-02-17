@@ -1,57 +1,41 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import "../Login.css";
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookingForm from './BookingForm';
 import ReservedTables from './ReservedTables';
-import { fetchAPI } from '../API.js';
+import { BookingContext } from './BookingContext';
+import { submitAPI } from '../API.js';
 
 function BookingPage() {
-    const [formValues, setFormValues] = useState({
-        name: '',
-        date: new Date(),
-        time: '',
-        guests: '1',
-        occasion: '',
-    });
+    const {
+        formValues,
+        setFormValues,
+        submittedForms,
+        setSubmittedForms,
+        availableTimes,
+        dispatch,
+    } = useContext(BookingContext);
 
-    const [submittedForms, setSubmittedForms] = useState([]);
+    const navigate = useNavigate();
 
-    const handleFormSubmit = (values) => {
-        setSubmittedForms([...submittedForms, values]);
-    };
-
-    const currentDate = new Date();
-    const [availableTimes, dispatch] = useReducer(reducer, initializeTimes(currentDate));
-
-    function initializeTimes(date) {
-        return (fetchAPI(date));
-    };
-
-    function updateTimes(date) {
-        return (fetchAPI(date));
-    };
-
-    function reducer (state, action) {
-        let newState = state;
-        switch (action.type) {
-            case 'update':
-                const newDate = new Date(action.payload);
-                newState = updateTimes(newDate)
-                break;
-        default:
-            throw new Error()
+    const handleFormSubmit = async (values) => {
+        const result = await submitAPI(values);
+        if (result) {
+            setSubmittedForms([...submittedForms, values]);
+            navigate('/confirmation');
+        } else {
+            console.error('Failed to submit the form');
         }
-        return newState
     };
 
     return (
         <main>
             <div>
                 <BookingForm
-                availableTimes={availableTimes}
-                dispatch={dispatch}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                onSubmit={handleFormSubmit} />
+                    availableTimes={availableTimes}
+                    dispatch={dispatch}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    onSubmit={handleFormSubmit} />
             </div>
             <div className="content">
                 <h2>Reservations</h2>
@@ -59,8 +43,8 @@ function BookingPage() {
                     <hr />
                     {submittedForms.map((form, index) => (
                         <ReservedTables
-                        key={index}
-                        formValues={form} />
+                            key={index}
+                            formValues={form} />
                     ))}
                 </div>
             </div>
