@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "../Login.css";
 
 function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSubmit }) {
+    const [isFormValid, setIsFormValid] = useState(false);
     const slots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    useEffect(() => {
+        const { name, date, time, guests, occasion } = formValues;
+        setIsFormValid(name && date && time && guests && occasion);
+    }, [formValues]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formValues);
-        clearForm();
+        if (isFormValid) {
+            onSubmit(formValues);
+            clearForm();
+        }
     };
 
     const clearForm = () => {
@@ -19,7 +27,6 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
             occasion: '',
         });
     };
-
 
     return (
         <div className="content">
@@ -111,11 +118,10 @@ function BookingForm({ availableTimes, dispatch, formValues, setFormValues, onSu
                     />
                 </div>
                 <br />
-                <button type="submit">Reserve</button>
+                <button type="submit" disabled={!isFormValid}>Reserve</button>
             </form>
         </div>
     );
 }
-
 
 export default BookingForm;
